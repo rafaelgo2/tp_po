@@ -105,6 +105,7 @@ int main() {
         for (int i = 0; i < m; i++)
             out << e[i].capacity << " ";
         out << endl;
+        out << ans << endl;
         out << endl;
     }
     out << ans << endl;
