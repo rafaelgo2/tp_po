@@ -6,9 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/rafael/PO/ford_fulkerson/main.cpp
+/home/rafael/PO/TP_PO/ford_fulkerson/main.cpp
 iostream
 -
 vector
+-
+fstream
 -
 
