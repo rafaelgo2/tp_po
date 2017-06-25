@@ -22,12 +22,6 @@ struct Shuffler{
 		sort(cmpv, cmpv+n);
 		init = 0;
 	}
-	bool hasNext(){
-		return init != n;
-	}
-	int getNext(){
-		return cmpv[init++].second;
-	}
 	struct iterator{
 		int i;
 		pair<int, int> *cmpv;
@@ -40,8 +34,8 @@ struct Shuffler{
 		bool operator!=(iterator r){
 			return i != r.i;
 		}
-		void operator+=(int inc){
-			i += inc;
+		void operator++(int){
+			i += 1;
 		}
 	};
 	iterator begin(){
@@ -61,7 +55,7 @@ int main(){ _
 		cin >> v[i];
 	Shuffler s(n);
 	s.shuffle();
-	for (Shuffler::iterator i = s.begin(); i != s.end(); i+= 1)
+	for (Shuffler::iterator i = s.begin(); i != s.end(); i++)
 		cout << v[*i] << " ";
 	cout << endl;
 	return 0;
