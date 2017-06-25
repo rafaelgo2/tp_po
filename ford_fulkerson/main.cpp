@@ -95,7 +95,7 @@ struct Graph {
     }
 };
 
-int main() {
+int main(){
     int n, m, capacity;
     in >> n
        >> m;
