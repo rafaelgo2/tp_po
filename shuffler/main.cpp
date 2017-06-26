@@ -30,7 +30,7 @@ struct Shuffler{
 			return cmpv[i].second;
 		}
 		bool operator!=(iterator r){
-			return i != r.i;
+			return cmpv != r.cmpv || i != r.i;
 		}
 		void operator++(int){
 			i += 1;
