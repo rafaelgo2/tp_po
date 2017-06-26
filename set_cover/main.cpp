@@ -5,8 +5,6 @@
 
 using namespace std;
 
-#define INF ( ((unsigned) -1) >> 1 )
-
 //MyShuffler
 struct Shuffler{
 	pair<int, int> *cmpv;
@@ -101,17 +99,17 @@ struct Subset{
 
 int main() {
 	int n, m;
-	cin >> n >> m;
+	in >> n >> m;
 
 	vector<Element> element(n);
 	vector<Subset> subset(m);
 	for (int i = 0; i < m; i++)
-		cin >> subset[i].capacity;
+		in >> subset[i].capacity;
 	
 	int aux;
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++){
-			cin >> aux;
+			in >> aux;
 			if (aux){
 				element[i].insert(j);
 				subset[j].insert(i);
@@ -134,14 +132,15 @@ int main() {
 			element[subset[smaller_subset][i]].selected = true;
 		for (unsigned i = 0; i < element[*it].size(); i++)
 			subset[element[*it][i]].capacity -= subset[smaller_subset].capacity;
+			
+		for (unsigned i = 0; i < m; i++)
+			out << (int)subset[i].selected << " ";
+		out << endl;
+		for (unsigned i = 0; i < n; i++)
+			out << element[i].weight << " ";
+		out << endl;
+		out << endl;
 	}
-	for (unsigned i = 0; i < m; i++)
-		cout << (int)subset[i].selected << " ";
-	cout << endl;
-
-	for (unsigned i = 0; i < n; i++)
-		cout << element[i].weight << " ";
-	cout << endl;
-	cout << ans << endl;
+	out << ans << endl;
 	return 0;
 }
