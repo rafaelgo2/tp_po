@@ -4,12 +4,11 @@ using namespace std;
 
 struct Shuffler{
 	pair<int, int> *cmpv;
-	int init;
 	int n;
 	Shuffler(int n):
 		n(n),
-		cmpv(new pair<int, int>[n]),
-		init(n){
+		cmpv(new pair<int, int>[n])
+		{
 	}
 	~Shuffler(){
 		delete [] cmpv;
@@ -20,7 +19,6 @@ struct Shuffler{
 			cmpv[i].second = i;
 		}
 		sort(cmpv, cmpv+n);
-		init = 0;
 	}
 	struct iterator{
 		int i;
