@@ -44,7 +44,7 @@ struct Graph {
         v.resize(n);
         e.reserve(2*m);
     }
-    void addEdge(Edge edge){
+    void add_edge(Edge edge){
         v[edge.from].push_back(e.size());
         e.push_back(edge);
         v[edge.to].push_back(e.size());
@@ -146,7 +146,7 @@ int main(){
         }
     Graph g(n, m);
     for (unsigned i = 0; i < e.size(); i++)
-        g.addEdge(e[i]);
+        g.add_edge(e[i]);
     g.max_flow(0, n-1);
     g.min_cut(0, n-1);
     return 0;
