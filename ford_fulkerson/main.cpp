@@ -28,6 +28,9 @@ struct Edge{
         e.original = false;
         return e;
     }
+    bool isResidual(){
+	return flow > 0;
+    }
 };
 
 typedef vector<int> Vertex;
@@ -69,10 +72,31 @@ struct Graph {
         }
         return 0;
     }
-    void min_cut(int curr, int dest, vector<bool> &visited){
-
+    void dfs_min_cut(int curr, int dest, vector<bool> &visited){
+	if (curr == dest)
+		return;
+	for (unsigned i = 0; i < v[curr].size(); i++){
+		Edge edge = e[v[curr][i]];
+		if (edge.isResidual() && !visited[edge.to]){
+			visited[edge.to] = true;
+			dfs_min_cut(edge.to, dest, visited);
+		}
+	}
     }
-    int max_flow(int begin, int end){
+    //Assume que max_flow(begin, end) ja foi chamado
+    void min_cut(int begin, int end){
+        vector<bool> visited(n);
+        fill(visited.begin(), visited.end(), false);
+	visited[begin] = true;
+	dfs_min_cut(begin, end, visited);
+	cout << "Min_cut: ";
+	for (unsigned i = 0; i < m; i++){
+	    Edge edge = e[2*i];
+	    out << (int) (visited[edge.from] && !visited[edge.to]) << " ";
+	}	
+        out << endl;
+    }
+    void max_flow(int begin, int end){
         vector<bool> visited(n);
         vector<bool> path(m);
         int flow = 0;
@@ -94,7 +118,7 @@ struct Graph {
                 out << e[2*i].capacity << " ";
             out << endl << endl;
         }
-        return flow;
+	cout << "Max_flow: " << flow << endl;
     }
 };
 
@@ -123,7 +147,7 @@ int main(){
     Graph g(n, m);
     for (unsigned i = 0; i < e.size(); i++)
         g.addEdge(e[i]);
-    int flow = g.max_flow(0, n-1);
-    cout << "Max flow = " << flow << endl;
+    g.max_flow(0, n-1);
+    g.min_cut(0, n-1);
     return 0;
 }
