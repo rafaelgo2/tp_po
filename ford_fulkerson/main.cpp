@@ -47,16 +47,16 @@ struct Graph {
         v[edge.to].push_back(e.size());
         e.push_back(~edge);
     }
-    int dfs(int curr, int dest, vector<int> &ant, vector<bool> &path, int acc){
+    int aug_path(int curr, int dest, vector<bool> &visited, vector<bool> &path, int acc){
         if (curr == dest){
             path[dest] = true;
             return acc;
         }
         for (unsigned i = 0; i < v[curr].size(); i++){
             Edge edge = e[v[curr][i]];
-            if (edge.flow > 0 && ant[edge.to] == -1){
-                ant[edge.to] = curr;
-                int aug = dfs(edge.to, dest, ant, path, min(acc, edge.flow));
+            if (edge.flow > 0 && !visited[edge.to]){
+                visited[edge.to] = true;
+                int aug = aug_path(edge.to, dest, visited, path, min(acc, edge.flow));
                 if (aug > 0){
                     int inc = edge.original ? 1 : -1;
                     if (edge.original)
@@ -69,15 +69,18 @@ struct Graph {
         }
         return 0;
     }
+    void min_cut(int curr, int dest, vector<bool> &visited){
+
+    }
     int max_flow(int begin, int end){
-        vector<int> ant(n);
+        vector<bool> visited(n);
         vector<bool> path(m);
         int flow = 0;
         while (true){
-            fill(ant.begin(), ant.end(), -1);
-            ant[begin] = begin;
+            fill(visited.begin(), visited.end(), false);
+            visited[begin] = true;
             fill(path.begin(), path.end(), false);
-            int aug = dfs(begin, end, ant, path, INF);
+            int aug = aug_path(begin, end, visited, path, INF);
             if (aug == 0)
                 break;
             flow += aug;
