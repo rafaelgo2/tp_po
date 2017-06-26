@@ -5,10 +5,9 @@ using namespace std;
 struct Shuffler{
 	pair<int, int> *cmpv;
 	int n;
-	Shuffler(int n):
-		n(n),
-		cmpv(new pair<int, int>[n])
-		{
+	Shuffler(int n_){
+		n = n_;
+		cmpv = new pair<int, int>[n];
 	}
 	~Shuffler(){
 		delete [] cmpv;
